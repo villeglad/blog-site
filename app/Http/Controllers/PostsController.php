@@ -11,7 +11,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::limit(100)->get();
-        return $posts;
+        return view('posts', compact('posts'));
     }
 
     public function cached()
@@ -19,6 +19,6 @@ class PostsController extends Controller
         $posts = Cache::remember('posts', 24*60, function () {
             return Post::limit(100)->get();
         });
-        return $posts;
+        return view('posts', compact('posts'));
     }
 }
