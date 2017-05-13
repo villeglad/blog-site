@@ -10,13 +10,14 @@ class PostsController extends Controller
 {
     public function index()
     {
-        return Post::all();
+        $posts = Post::limit(100)->get();
+        return $posts;
     }
 
     public function cached()
     {
         $posts = Cache::remember('posts', 24*60, function () {
-            return Post::all();
+            return Post::limit(100)->get();
         });
         return $posts;
     }
